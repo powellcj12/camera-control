@@ -16,6 +16,7 @@
             <connections>
                 <outlet property="autoExposureCheckBox" destination="500" id="529"/>
                 <outlet property="autoWhiteBalanceCheckBox" destination="506" id="531"/>
+                <outlet property="captureView" destination="hEv-3X-7lb" id="ces-iq-ky6"/>
                 <outlet property="exposureSlider" destination="502" id="530"/>
                 <outlet property="gainSlider" destination="514" id="533"/>
                 <outlet property="whiteBalanceSlider" destination="508" id="532"/>
@@ -198,6 +199,10 @@
                             <action selector="sliderMoved:" target="526" id="538"/>
                         </connections>
                     </slider>
+                    <customView id="hEv-3X-7lb">
+                        <rect key="frame" x="0.0" y="0.0" width="639" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-143" y="-180"/>

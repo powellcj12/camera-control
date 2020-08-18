@@ -3,33 +3,28 @@
 
 @implementation CameraControlAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {		
-	videoDevice = [[QTCaptureDevice inputDevicesWithMediaType:QTMediaTypeVideo] objectAtIndex:0];
-	[videoDevice open:nil];
-	
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+
+	videoDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+
 	if( !videoDevice ) {
 		NSLog( @"No video input device" );
 		exit( 1 );
 	}
+
+	videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:videoDevice error:nil];
+
+	captureSession = [[AVCaptureSession alloc] init];
+	[captureSession addInput:videoInput];
 	
-	videoInput = [[QTCaptureDeviceInput alloc] initWithDevice:videoDevice];
-	
-	captureSession = [[QTCaptureSession alloc] init];
-	[captureSession addInput:videoInput error:nil];	
+	CALayer *captureViewLayer = [captureView layer];
+	[captureViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
+	[newPreviewLayer setFrame:[captureViewLayer bounds]];
+	[newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
+	[captureViewLayer addSublayer:newPreviewLayer];
+
 	[captureSession startRunning];
-	
-	[captureView setCaptureSession:captureSession];
-	[captureView setVideoPreviewConnection:[[captureView availableVideoPreviewConnections] objectAtIndex:0]];
-	
-	
-	// Setting a lower resolution for the CaptureOutput here, since otherwise QTCaptureView
-	// pulls full-res frames from the camera, which is slow. This is just for cosmetics.
-	NSDictionary * pixelBufferAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-									  [NSNumber numberWithInt:640], kCVPixelBufferWidthKey,
-									  [NSNumber numberWithInt:480], kCVPixelBufferHeightKey, nil];
-	[[[captureSession outputs] objectAtIndex:0] setPixelBufferAttributes:pixelBufferAttr];
-	
-	
 	
 	
 	// Ok, this might be all kinds of wrong, but it was the only way I found to map a 

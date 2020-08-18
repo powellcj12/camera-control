@@ -1,16 +1,15 @@
 #import <Foundation/Foundation.h>
-#import <QTKit/QTKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "UVCCameraControl.h"
 
 @interface CameraControlAppDelegate : NSObject {
-	QTCaptureSession * captureSession;
-	QTCaptureDevice * videoDevice;
-	QTCaptureDeviceInput * videoInput;
+	AVCaptureSession * captureSession;
+	AVCaptureDevice * videoDevice;
+	AVCaptureDeviceInput * videoInput;
 	
 	UVCCameraControl * cameraControl;
 	
-	IBOutlet QTCaptureView * captureView;
-	
+	IBOutlet NSView *captureView;
 	IBOutlet NSButton * autoExposureCheckBox;
 	IBOutlet NSButton * autoWhiteBalanceCheckBox;
 	IBOutlet NSSlider * exposureSlider;

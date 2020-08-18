@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		2A64E98324EB730A003DE320 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A64E98224EB730A003DE320 /* AVFoundation.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		B67EDD6310058536003B5B87 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67EDD6210058536003B5B87 /* QTKit.framework */; };
 		B6BA230E0FFEB70E009E4207 /* UVCCameraControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA230D0FFEB70E009E4207 /* UVCCameraControl.m */; };
 		B6BA231B0FFEB7B5009E4207 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BA231A0FFEB7B5009E4207 /* IOKit.framework */; };
 		B6C49393100BA7D600475D9D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C49392100BA7D600475D9D /* CoreVideo.framework */; };
@@ -27,10 +27,10 @@
 		2A64E97F24EB55D8003DE320 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2A64E98024EB5A63003DE320 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2A64E98124EB5A63003DE320 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A64E98224EB730A003DE320 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* CameraControl_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraControl_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* CameraControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B67EDD6210058536003B5B87 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		B6BA230C0FFEB70E009E4207 /* UVCCameraControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVCCameraControl.h; sourceTree = "<group>"; };
 		B6BA230D0FFEB70E009E4207 /* UVCCameraControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UVCCameraControl.m; sourceTree = "<group>"; };
 		B6BA231A0FFEB7B5009E4207 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -44,9 +44,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A64E98324EB730A003DE320 /* AVFoundation.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				B6BA231B0FFEB7B5009E4207 /* IOKit.framework in Frameworks */,
-				B67EDD6310058536003B5B87 /* QTKit.framework in Frameworks */,
 				B6C49393100BA7D600475D9D /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +68,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B67EDD6210058536003B5B87 /* QTKit.framework */,
 				B6BA231A0FFEB7B5009E4207 /* IOKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
@@ -129,6 +128,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A64E98224EB730A003DE320 /* AVFoundation.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
