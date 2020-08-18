@@ -72,7 +72,7 @@
 	
 	// Auto Exposure
 	if( [sender isEqualTo:autoExposureCheckBox] ) {
-		if( autoExposureCheckBox.state == NSOnState ) {
+		if( autoExposureCheckBox.state == NSControlStateValueOn ) {
 			[cameraControl setAutoExposure:YES];
 			[exposureSlider setEnabled:NO];
 		} 
@@ -85,7 +85,7 @@
 	
 	// Auto White Balance
 	else if( [sender isEqualTo:autoWhiteBalanceCheckBox] ) {
-		if( autoWhiteBalanceCheckBox.state == NSOnState ) {
+		if( autoWhiteBalanceCheckBox.state == NSControlStateValueOn ) {
 			[cameraControl setAutoWhiteBalance:YES];
 			[whiteBalanceSlider setEnabled:NO];
 		} 
