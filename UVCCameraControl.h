@@ -44,6 +44,7 @@ typedef struct {
 @interface UVCCameraControl : NSObject {
 	long dataBuffer;
 	IOUSBInterfaceInterface190 **interface;
+	NSArray<NSNumber *> *_discreteExposureValues;
 }
 
 
@@ -60,7 +61,7 @@ typedef struct {
 - (float)getValueForControl:(const uvc_control_info_t *)control;
 - (BOOL)setValue:(float)value forControl:(const uvc_control_info_t *)control;
 
-
+- (NSUInteger)numExposureValues;
 - (BOOL)setAutoExposure:(BOOL)enabled;
 - (BOOL)getAutoExposure;
 - (BOOL)setExposure:(float)value;

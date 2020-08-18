@@ -52,9 +52,20 @@ const uvc_controls_t uvc_controls = {
 
 @implementation UVCCameraControl
 
+- (id)init {
+	self = [super init];
+	if (self) {
+		// Allegedly specific to the Microsoft LifeCam sensor
+		_discreteExposureValues = @[@1, @2, @5, @10, @20, @39, @78, @156, @312, @625, @1250, @2500, @5000, @1000];
+		[_discreteExposureValues retain];
+	}
+
+	return self;
+}
+
 
 - (id)initWithLocationID:(UInt32)locationID {
-	if( self = [super init] ) {
+	if( self = [self init] ) {
 		interface = NULL;
 		
 		// Find All USB Devices, get their locationId and check if it matches the requested one
@@ -97,7 +108,7 @@ const uvc_controls_t uvc_controls = {
 
 
 - (id)initWithVendorID:(long)vendorID productID:(long)productID {
-	if( self = [super init] ) {
+	if( self = [self init] ) {
 		interface = NULL;
 		
 		// Find USB Device
@@ -271,7 +282,7 @@ const uvc_controls_t uvc_controls = {
 - (float)getValueForControl:(const uvc_control_info_t *)control {
 	// TODO: Cache the range somewhere?
 	uvc_range_t range = [self getRangeForControl:control];
-	
+
 	long intval = [self getDataFor:UVC_GET_CUR withLength:control->size fromSelector:control->selector at:control->unit];
 	return [self mapValue:intval fromMin:range.min max:range.max toMin:0 max:1];
 }
@@ -281,7 +292,7 @@ const uvc_controls_t uvc_controls = {
 - (BOOL)setValue:(float)value forControl:(const uvc_control_info_t *)control {
 	// TODO: Cache the range somewhere?
 	uvc_range_t range = [self getRangeForControl:control];
-	
+
 	int intval = [self mapValue:value fromMin:0 max:1 toMin:range.min max:range.max];
 	return [self setData:intval withLength:control->size forSelector:control->selector at:control->unit];
 }
@@ -295,10 +306,14 @@ const uvc_controls_t uvc_controls = {
 // Set/Get the actual values for the camera
 //
 
+- (NSUInteger)numExposureValues {
+	return [_discreteExposureValues count];
+}
+
 - (BOOL)setAutoExposure:(BOOL)enabled {
 	int intval = (enabled ? 0x08 : 0x01); // "auto exposure modes" ar NOT boolean (on|off) as it seems
 	return [self setData:intval 
-			  withLength:uvc_controls.autoExposure.size 
+			  withLength:uvc_controls.autoExposure.size
 			 forSelector:uvc_controls.autoExposure.selector 
 					  at:uvc_controls.autoExposure.unit];
 }
@@ -313,8 +328,11 @@ const uvc_controls_t uvc_controls = {
 }
 
 - (BOOL)setExposure:(float)value {
-	value = 1 - value;
-	return [self setValue:value forControl:&uvc_controls.exposure];
+	NSUInteger exposureIndex = value * ([_discreteExposureValues count] - 1);
+	return [self setData:[_discreteExposureValues[exposureIndex] intValue]
+			  withLength:uvc_controls.exposure.size
+			 forSelector:uvc_controls.exposure.selector
+					  at:uvc_controls.exposure.unit];
 }
 
 - (float)getExposure {

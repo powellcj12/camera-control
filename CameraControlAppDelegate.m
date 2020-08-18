@@ -28,6 +28,9 @@
 	cameraControl = [[UVCCameraControl alloc] initWithVendorID:0x045e productID:0x0772];
 	[cameraControl setAutoExposure:YES];
 	[cameraControl setAutoWhiteBalance:YES];
+
+	[exposureSlider setNumberOfTickMarks:[cameraControl numExposureValues]];
+	[exposureSlider setAllowsTickMarkValuesOnly:YES];
 }
 
 
@@ -35,7 +38,7 @@
 	
 	// Exposure Time
 	if( [sender isEqualTo:exposureSlider] ) {		
-		[cameraControl setExposure:exposureSlider.floatValue];
+		[cameraControl setExposure:[exposureSlider closestTickMarkValueToValue:exposureSlider.floatValue]];
 	}
 	
 	// White Balance Temperature
