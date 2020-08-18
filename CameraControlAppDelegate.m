@@ -4,8 +4,7 @@
 @implementation CameraControlAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-
-	videoDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+	videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 
 	if( !videoDevice ) {
 		NSLog( @"No video input device" );
