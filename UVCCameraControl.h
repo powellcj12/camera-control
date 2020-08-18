@@ -19,7 +19,7 @@
 #define UVC_GET_MAX	0x83
 
 typedef struct {
-	int min, max;
+	long min, max;
 } uvc_range_t;
 
 typedef struct {

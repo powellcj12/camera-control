@@ -272,7 +272,7 @@ const uvc_controls_t uvc_controls = {
 	// TODO: Cache the range somewhere?
 	uvc_range_t range = [self getRangeForControl:control];
 	
-	int intval = [self getDataFor:UVC_GET_CUR withLength:control->size fromSelector:control->selector at:control->unit];
+	long intval = [self getDataFor:UVC_GET_CUR withLength:control->size fromSelector:control->selector at:control->unit];
 	return [self mapValue:intval fromMin:range.min max:range.max toMin:0 max:1];
 }
 
@@ -304,7 +304,7 @@ const uvc_controls_t uvc_controls = {
 }
 
 - (BOOL)getAutoExposure {
-	int intval = [self getDataFor:UVC_GET_CUR 
+	long intval = [self getDataFor:UVC_GET_CUR
 					   withLength:uvc_controls.autoExposure.size 
 					 fromSelector:uvc_controls.autoExposure.selector 
 							   at:uvc_controls.autoExposure.unit];
@@ -371,7 +371,7 @@ const uvc_controls_t uvc_controls = {
 }
 
 - (BOOL)getAutoWhiteBalance {
-	int intval = [self getDataFor:UVC_GET_CUR 
+	long intval = [self getDataFor:UVC_GET_CUR 
 					   withLength:uvc_controls.autoWhiteBalance.size 
 					 fromSelector:uvc_controls.autoWhiteBalance.selector 
 							   at:uvc_controls.autoWhiteBalance.unit];
