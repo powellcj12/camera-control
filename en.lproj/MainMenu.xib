@@ -16,6 +16,7 @@
             <connections>
                 <outlet property="autoExposureCheckBox" destination="500" id="529"/>
                 <outlet property="autoWhiteBalanceCheckBox" destination="506" id="531"/>
+                <outlet property="cameraSelectButton" destination="EL8-by-NR1" id="vJl-d4-UTA"/>
                 <outlet property="captureView" destination="hEv-3X-7lb" id="ces-iq-ky6"/>
                 <outlet property="exposureSlider" destination="502" id="530"/>
                 <outlet property="gainSlider" destination="514" id="533"/>
@@ -120,8 +121,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="832" height="480"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EL8-by-NR1">
+                        <rect key="frame" x="646" y="436" width="169" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="rvN-F2-Tdo">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <menu key="menu" id="FP9-5h-U4u"/>
+                        </popUpButtonCell>
+                        <connections>
+                            <action selector="selectedCameraChanged:" target="526" id="xD3-PG-CIO"/>
+                        </connections>
+                    </popUpButton>
+                    <customView id="hEv-3X-7lb">
+                        <rect key="frame" x="0.0" y="0.0" width="639" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="500">
-                        <rect key="frame" x="646" y="444" width="136" height="18"/>
+                        <rect key="frame" x="646" y="386" width="136" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Auto Exposure" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="501">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -132,7 +149,7 @@
                         </connections>
                     </button>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="502">
-                        <rect key="frame" x="646" y="384" width="168" height="21"/>
+                        <rect key="frame" x="646" y="326" width="168" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="503">
                             <font key="font" metaFont="user"/>
@@ -142,7 +159,7 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="504">
-                        <rect key="frame" x="645" y="411" width="138" height="17"/>
+                        <rect key="frame" x="645" y="353" width="138" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure Time" id="505">
                             <font key="font" metaFont="system"/>
@@ -151,7 +168,7 @@
                         </textFieldCell>
                     </textField>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="506">
-                        <rect key="frame" x="646" y="324" width="168" height="18"/>
+                        <rect key="frame" x="646" y="266" width="168" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Auto White Balance" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="507">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -162,7 +179,7 @@
                         </connections>
                     </button>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="508">
-                        <rect key="frame" x="646" y="264" width="168" height="21"/>
+                        <rect key="frame" x="646" y="206" width="168" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="509">
                             <font key="font" metaFont="user"/>
@@ -172,7 +189,7 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="510">
-                        <rect key="frame" x="645" y="291" width="170" height="17"/>
+                        <rect key="frame" x="645" y="233" width="170" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="White Balance" id="511">
                             <font key="font" metaFont="system"/>
@@ -181,7 +198,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="512">
-                        <rect key="frame" x="645" y="203" width="38" height="17"/>
+                        <rect key="frame" x="645" y="145" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gain" id="513">
                             <font key="font" metaFont="system"/>
@@ -190,7 +207,7 @@
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="514">
-                        <rect key="frame" x="646" y="176" width="168" height="21"/>
+                        <rect key="frame" x="646" y="118" width="168" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="515">
                             <font key="font" metaFont="user"/>
@@ -199,10 +216,6 @@
                             <action selector="sliderMoved:" target="526" id="538"/>
                         </connections>
                     </slider>
-                    <customView id="hEv-3X-7lb">
-                        <rect key="frame" x="0.0" y="0.0" width="639" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    </customView>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-143" y="-180"/>

@@ -2,30 +2,31 @@
 
 
 @implementation CameraControlAppDelegate {
+	AVCaptureSession *m_captureSession;
+	AVCaptureDeviceDiscoverySession *m_discoverySession;
 	UVCCameraControl *m_cameraControl;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	AVCaptureDevice *captureDevice = [AVCaptureDevice deviceWithUniqueID:@"0x14400000045e0772"];
+	NSArray<AVCaptureDeviceType> *deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeExternalUnknown];
+	m_discoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes
+																					  mediaType:AVMediaTypeVideo
+																					   position:AVCaptureDevicePositionUnspecified];
 
-	if( !captureDevice ) {
-		NSLog( @"No video input device" );
-		exit( 1 );
-	}
+	NSArray<AVCaptureDevice *> *devices = [m_discoverySession devices];
+	for (AVCaptureDevice *device in devices)
+		[cameraSelectButton addItemWithTitle:[device localizedName]];
 
-	AVCaptureDeviceInput *captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
-
-	AVCaptureSession *captureSession = [[AVCaptureSession alloc] init];
-	[captureSession addInput:captureDeviceInput];
+	m_captureSession = [[AVCaptureSession alloc] init];
 	
 	CALayer *captureViewLayer = [captureView layer];
 	[captureViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
-	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
+	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:m_captureSession];
 	[newPreviewLayer setFrame:[captureViewLayer bounds]];
 	[newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
 	[captureViewLayer addSublayer:newPreviewLayer];
 
-	[captureSession startRunning];
+	[self setCaptureSessionToUseDevice:[devices firstObject]];
 
 	m_cameraControl = [[UVCCameraControl alloc] initWithVendorID:0x045e productID:0x0772];
 	[m_cameraControl setAutoExposure:YES];
@@ -33,6 +34,25 @@
 
 	[exposureSlider setNumberOfTickMarks:[m_cameraControl numExposureValues]];
 	[exposureSlider setAllowsTickMarkValuesOnly:YES];
+}
+
+
+- (void)setCaptureSessionToUseDevice:(AVCaptureDevice *)device {
+	if ([m_captureSession isRunning])
+		[m_captureSession stopRunning];
+
+	NSArray<AVCaptureDeviceInput *> *inputs = [m_captureSession inputs];
+	NSUInteger inputCount = [inputs count];
+	if (inputCount > 0) {
+
+		if (inputCount > 1)
+			NSLog(@"Multiple input devices for current capture session!");
+
+		[m_captureSession removeInput:[inputs firstObject]];
+	}
+
+	[m_captureSession addInput:[AVCaptureDeviceInput deviceInputWithDevice:device error:nil]];
+	[m_captureSession startRunning];
 }
 
 
@@ -54,6 +74,18 @@
 	}
 }
 
+
+- (IBAction)selectedCameraChanged:(id)sender {
+	NSString *selectedCameraName = [cameraSelectButton titleOfSelectedItem];
+
+	NSArray<AVCaptureDevice *> *devices = [m_discoverySession devices];
+	[devices enumerateObjectsUsingBlock:^(AVCaptureDevice * _Nonnull device, NSUInteger idx, BOOL * _Nonnull stop) {
+		if ([[device localizedName] isEqualToString:selectedCameraName]) {
+			[self setCaptureSessionToUseDevice:device];
+			*stop = YES;
+		}
+	}];
+}
 
 - (IBAction)checkBoxChanged:(id)sender {
 	
