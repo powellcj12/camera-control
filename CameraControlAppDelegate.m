@@ -2,34 +2,30 @@
 
 
 @implementation CameraControlAppDelegate {
-	AVCaptureSession *m_captureSession;
-	AVCaptureDevice *m_videoDevice;
-	AVCaptureDeviceInput *m_videoInput;
-
 	UVCCameraControl *m_cameraControl;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	m_videoDevice = [AVCaptureDevice deviceWithUniqueID:@"0x14400000045e0772"];
+	AVCaptureDevice *captureDevice = [AVCaptureDevice deviceWithUniqueID:@"0x14400000045e0772"];
 
-	if( !m_videoDevice ) {
+	if( !captureDevice ) {
 		NSLog( @"No video input device" );
 		exit( 1 );
 	}
 
-	m_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:m_videoDevice error:nil];
+	AVCaptureDeviceInput *captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
 
-	m_captureSession = [[AVCaptureSession alloc] init];
-	[m_captureSession addInput:m_videoInput];
+	AVCaptureSession *captureSession = [[AVCaptureSession alloc] init];
+	[captureSession addInput:captureDeviceInput];
 	
 	CALayer *captureViewLayer = [captureView layer];
 	[captureViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
-	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:m_captureSession];
+	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
 	[newPreviewLayer setFrame:[captureViewLayer bounds]];
 	[newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
 	[captureViewLayer addSublayer:newPreviewLayer];
 
-	[m_captureSession startRunning];
+	[captureSession startRunning];
 
 	m_cameraControl = [[UVCCameraControl alloc] initWithVendorID:0x045e productID:0x0772];
 	[m_cameraControl setAutoExposure:YES];
