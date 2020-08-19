@@ -3,12 +3,6 @@
 #import "UVCCameraControl.h"
 
 @interface CameraControlAppDelegate : NSObject {
-	AVCaptureSession * captureSession;
-	AVCaptureDevice * videoDevice;
-	AVCaptureDeviceInput * videoInput;
-	
-	UVCCameraControl * cameraControl;
-	
 	IBOutlet NSView *captureView;
 	IBOutlet NSButton * autoExposureCheckBox;
 	IBOutlet NSButton * autoWhiteBalanceCheckBox;

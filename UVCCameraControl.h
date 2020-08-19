@@ -41,12 +41,7 @@ typedef struct {
 } uvc_controls_t ;
 
 
-@interface UVCCameraControl : NSObject {
-	long dataBuffer;
-	IOUSBInterfaceInterface190 **interface;
-	NSArray<NSNumber *> *_discreteExposureValues;
-}
-
+@interface UVCCameraControl : NSObject
 
 - (id)initWithLocationID:(UInt32)locationID;
 - (id)initWithVendorID:(long)vendorID productID:(long)productID;

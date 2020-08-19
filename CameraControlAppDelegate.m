@@ -1,35 +1,41 @@
 #import "CameraControlAppDelegate.h"
 
 
-@implementation CameraControlAppDelegate
+@implementation CameraControlAppDelegate {
+	AVCaptureSession *m_captureSession;
+	AVCaptureDevice *m_videoDevice;
+	AVCaptureDeviceInput *m_videoInput;
+
+	UVCCameraControl *m_cameraControl;
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	videoDevice = [AVCaptureDevice deviceWithUniqueID:@"0x14400000045e0772"];
+	m_videoDevice = [AVCaptureDevice deviceWithUniqueID:@"0x14400000045e0772"];
 
-	if( !videoDevice ) {
+	if( !m_videoDevice ) {
 		NSLog( @"No video input device" );
 		exit( 1 );
 	}
 
-	videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:videoDevice error:nil];
+	m_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:m_videoDevice error:nil];
 
-	captureSession = [[AVCaptureSession alloc] init];
-	[captureSession addInput:videoInput];
+	m_captureSession = [[AVCaptureSession alloc] init];
+	[m_captureSession addInput:m_videoInput];
 	
 	CALayer *captureViewLayer = [captureView layer];
 	[captureViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
-	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
+	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:m_captureSession];
 	[newPreviewLayer setFrame:[captureViewLayer bounds]];
 	[newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
 	[captureViewLayer addSublayer:newPreviewLayer];
 
-	[captureSession startRunning];
+	[m_captureSession startRunning];
 
-	cameraControl = [[UVCCameraControl alloc] initWithVendorID:0x045e productID:0x0772];
-	[cameraControl setAutoExposure:YES];
-	[cameraControl setAutoWhiteBalance:YES];
+	m_cameraControl = [[UVCCameraControl alloc] initWithVendorID:0x045e productID:0x0772];
+	[m_cameraControl setAutoExposure:YES];
+	[m_cameraControl setAutoWhiteBalance:YES];
 
-	[exposureSlider setNumberOfTickMarks:[cameraControl numExposureValues]];
+	[exposureSlider setNumberOfTickMarks:[m_cameraControl numExposureValues]];
 	[exposureSlider setAllowsTickMarkValuesOnly:YES];
 }
 
@@ -38,17 +44,17 @@
 	
 	// Exposure Time
 	if( [sender isEqualTo:exposureSlider] ) {		
-		[cameraControl setExposure:[exposureSlider closestTickMarkValueToValue:exposureSlider.floatValue]];
+		[m_cameraControl setExposure:[exposureSlider closestTickMarkValueToValue:exposureSlider.floatValue]];
 	}
 	
 	// White Balance Temperature
 	else if( [sender isEqualTo:whiteBalanceSlider] ) {
-		[cameraControl setWhiteBalance:whiteBalanceSlider.floatValue];
+		[m_cameraControl setWhiteBalance:whiteBalanceSlider.floatValue];
 	}
 	
 	// Gain Value
 	else if( [sender isEqualTo:gainSlider] ) {
-		[cameraControl setBrightness:gainSlider.floatValue];
+		[m_cameraControl setBrightness:gainSlider.floatValue];
 	}
 }
 
@@ -58,26 +64,26 @@
 	// Auto Exposure
 	if( [sender isEqualTo:autoExposureCheckBox] ) {
 		if( autoExposureCheckBox.state == NSControlStateValueOn ) {
-			[cameraControl setAutoExposure:YES];
+			[m_cameraControl setAutoExposure:YES];
 			[exposureSlider setEnabled:NO];
 		} 
 		else {
-			[cameraControl setAutoExposure:NO];
+			[m_cameraControl setAutoExposure:NO];
 			[exposureSlider setEnabled:YES];
-			[cameraControl setExposure:exposureSlider.floatValue];
+			[m_cameraControl setExposure:exposureSlider.floatValue];
 		}
 	}
 	
 	// Auto White Balance
 	else if( [sender isEqualTo:autoWhiteBalanceCheckBox] ) {
 		if( autoWhiteBalanceCheckBox.state == NSControlStateValueOn ) {
-			[cameraControl setAutoWhiteBalance:YES];
+			[m_cameraControl setAutoWhiteBalance:YES];
 			[whiteBalanceSlider setEnabled:NO];
 		} 
 		else {
-			[cameraControl setAutoWhiteBalance:NO];
+			[m_cameraControl setAutoWhiteBalance:NO];
 			[whiteBalanceSlider setEnabled:YES];
-			[cameraControl setWhiteBalance:whiteBalanceSlider.floatValue];
+			[m_cameraControl setWhiteBalance:whiteBalanceSlider.floatValue];
 		}
 	}
 }

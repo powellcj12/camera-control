@@ -50,13 +50,16 @@ const uvc_controls_t uvc_controls = {
 };
 
 
-@implementation UVCCameraControl
+@implementation UVCCameraControl {
+	IOUSBInterfaceInterface190 **m_interface;
+	NSArray<NSNumber *> *m_discreteExposureValues;
+}
 
 - (id)init {
 	self = [super init];
 	if (self) {
 		// Allegedly specific to the Microsoft LifeCam sensor
-		_discreteExposureValues = @[@1, @2, @5, @10, @20, @39, @78, @156, @312, @625, @1250, @2500, @5000, @1000];
+		m_discreteExposureValues = @[@1, @2, @5, @10, @20, @39, @78, @156, @312, @625, @1250, @2500, @5000, @1000];
 	}
 
 	return self;
@@ -65,7 +68,7 @@ const uvc_controls_t uvc_controls = {
 
 - (id)initWithLocationID:(UInt32)locationID {
 	if( self = [self init] ) {
-		interface = NULL;
+		m_interface = NULL;
 		
 		// Find All USB Devices, get their locationId and check if it matches the requested one
 		CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
@@ -96,7 +99,7 @@ const uvc_controls_t uvc_controls = {
 			
 			if( currentLocationID == locationID ) {
 				// Yep, this is the USB Device that was requested!
-				interface = [self getControlInferaceWithDeviceInterface:deviceInterface];
+				m_interface = [self getControlInferaceWithDeviceInterface:deviceInterface];
 				return self;
 			}
 		} // end while
@@ -108,7 +111,7 @@ const uvc_controls_t uvc_controls = {
 
 - (id)initWithVendorID:(long)vendorID productID:(long)productID {
 	if( self = [self init] ) {
-		interface = NULL;
+		m_interface = NULL;
 		
 		// Find USB Device
 		CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
@@ -141,7 +144,7 @@ const uvc_controls_t uvc_controls = {
             return self;
         }
 		
-		interface = [self getControlInferaceWithDeviceInterface:deviceInterface];
+		m_interface = [self getControlInferaceWithDeviceInterface:deviceInterface];
 	}
 	return self;
 }
@@ -199,35 +202,35 @@ const uvc_controls_t uvc_controls = {
 
 
 - (void)dealloc {
-	if( interface ) {
-		(*interface)->USBInterfaceClose(interface);
-		(*interface)->Release(interface);
+	if( m_interface ) {
+		(*m_interface)->USBInterfaceClose(m_interface);
+		(*m_interface)->Release(m_interface);
 	}
 }
 
 
 - (BOOL)sendControlRequest:(IOUSBDevRequest)controlRequest {
-	if( !interface ){
+	if( !m_interface ){
 		NSLog( @"CameraControl Error: No interface to send request" );
 		return NO;
 	}
 	
 	//Now open the interface. This will cause the pipes associated with
 	//the endpoints in the interface descriptor to be instantiated
-	kern_return_t kr = (*interface)->USBInterfaceOpen(interface);
+	kern_return_t kr = (*m_interface)->USBInterfaceOpen(m_interface);
 	if (kr != kIOReturnSuccess)	{
 		NSLog( @"CameraControl Error: Unable to open interface (%08x)\n", kr );
 		return NO;
 	}
 	
-	kr = (*interface)->ControlRequest( interface, 0, &controlRequest );
+	kr = (*m_interface)->ControlRequest( m_interface, 0, &controlRequest );
 	if( kr != kIOReturnSuccess ) {
-		kr = (*interface)->USBInterfaceClose(interface);
+		kr = (*m_interface)->USBInterfaceClose(m_interface);
 		NSLog( @"CameraControl Error: Control request failed: %08x", kr );
 		return NO;
 	}
 	
-	kr = (*interface)->USBInterfaceClose(interface);
+	kr = (*m_interface)->USBInterfaceClose(m_interface);
 	
 	return YES;
 }
@@ -305,7 +308,7 @@ const uvc_controls_t uvc_controls = {
 //
 
 - (NSUInteger)numExposureValues {
-	return [_discreteExposureValues count];
+	return [m_discreteExposureValues count];
 }
 
 - (BOOL)setAutoExposure:(BOOL)enabled {
@@ -326,8 +329,8 @@ const uvc_controls_t uvc_controls = {
 }
 
 - (BOOL)setExposure:(float)value {
-	NSUInteger exposureIndex = value * ([_discreteExposureValues count] - 1);
-	return [self setData:[_discreteExposureValues[exposureIndex] intValue]
+	NSUInteger exposureIndex = value * ([m_discreteExposureValues count] - 1);
+	return [self setData:[m_discreteExposureValues[exposureIndex] intValue]
 			  withLength:uvc_controls.exposure.size
 			 forSelector:uvc_controls.exposure.selector
 					  at:uvc_controls.exposure.unit];
