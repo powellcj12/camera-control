@@ -5,7 +5,7 @@ The CameraControl app and underlying UVCCameraControl code were originally made 
 I had been using a verison of this app on 10.14 Mojave without issue but in 10.15 Catalina, Apple dropped support for 32-bit apps meaning that the QTKit framework the original project relies on is no longer available. AVFoundation is meant to be a replacement as documented by Apple in [TN2300](https://developer.apple.com/library/archive/technotes/tn2300/_index.html). That's the main work happening in this project.
 
 ## Camera Support
-Right now there are 2 different places to interface with the camera - one for the AVCaptureDevice and another for the UVCCameraControl. Currently the AVCaptureDevice uses a unique ID which will be different for each camera and system, so that almost certainly won't work for others. The UVCCameraControl is based on the vendor and product IDs that can be found in System Information, currently set for the Microsoft LifeCam Studio(TM) that's motivating this project:
+While the app has a dropdown to switch between cameras, the UVCCameraControl created is based on the vendor and product IDs that can be found in System Information, currently set for the Microsoft LifeCam Studio(TM) that's motivating this project. Unless you're using this camera the settings almost certainly won't work, so until the logic there is generalized (tracked by #2) you'll need to manually update the code with the relevant values:
 ![Image of System Information to see vendor and product IDs](SystemInformation.png)
 
 ### Exposure Values
