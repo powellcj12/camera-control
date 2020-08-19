@@ -83,14 +83,6 @@
 }
 
 
-- (void)dealloc {
-	[captureSession release];
-	[videoInput release];
-	[videoDevice release];
-	
-	[cameraControl release];
-	[super dealloc];
-}
 
 @end
 

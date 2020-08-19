@@ -57,7 +57,6 @@ const uvc_controls_t uvc_controls = {
 	if (self) {
 		// Allegedly specific to the Microsoft LifeCam sensor
 		_discreteExposureValues = @[@1, @2, @5, @10, @20, @39, @78, @156, @312, @625, @1250, @2500, @5000, @1000];
-		[_discreteExposureValues retain];
 	}
 
 	return self;
@@ -204,7 +203,6 @@ const uvc_controls_t uvc_controls = {
 		(*interface)->USBInterfaceClose(interface);
 		(*interface)->Release(interface);
 	}
-	[super dealloc];
 }
 
 
