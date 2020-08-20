@@ -7,33 +7,33 @@
 	UVCCameraControl *m_cameraControl;
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	NSArray<AVCaptureDeviceType> *deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeExternalUnknown];
-	m_discoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes
-																					  mediaType:AVMediaTypeVideo
-																					   position:AVCaptureDevicePositionUnspecified];
-
-	NSArray<AVCaptureDevice *> *devices = [m_discoverySession devices];
-	for (AVCaptureDevice *device in devices)
+- (void)populateUIControls {
+	for (AVCaptureDevice *device in [m_discoverySession devices])
 		[cameraSelectButton addItemWithTitle:[device localizedName]];
 
-	m_captureSession = [[AVCaptureSession alloc] init];
-	
+	[exposureSlider setNumberOfTickMarks:[m_cameraControl numExposureValues]];
+	[exposureSlider setAllowsTickMarkValuesOnly:YES];
+
 	CALayer *captureViewLayer = [captureView layer];
 	[captureViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
 	AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:m_captureSession];
 	[newPreviewLayer setFrame:[captureViewLayer bounds]];
 	[newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
 	[captureViewLayer addSublayer:newPreviewLayer];
+}
 
-	[self setCaptureSessionToUseDevice:[devices firstObject]];
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	m_discoverySession = [AVCaptureDeviceDiscoverySession
+		discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeExternalUnknown]
+							  mediaType:AVMediaTypeVideo
+							   position:AVCaptureDevicePositionUnspecified];
 
+	m_captureSession = [[AVCaptureSession alloc] init];
+	
 	m_cameraControl = [[UVCCameraControl alloc] initWithVendorID:0x045e productID:0x0772];
-	[m_cameraControl setAutoExposure:YES];
-	[m_cameraControl setAutoWhiteBalance:YES];
 
-	[exposureSlider setNumberOfTickMarks:[m_cameraControl numExposureValues]];
-	[exposureSlider setAllowsTickMarkValuesOnly:YES];
+	[self populateUIControls];
+	[self setCaptureSessionToUseDevice:[[m_discoverySession devices] firstObject]];
 }
 
 
