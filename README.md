@@ -6,7 +6,7 @@ I had been using a verison of this app on 10.14 Mojave without issue but in 10.1
 
 ## Camera Support
 While the app has a dropdown to switch between cameras, the UVCCameraControl created is based on the vendor and product IDs that can be found in System Information, currently set for the Microsoft LifeCam Studio(TM) that's motivating this project. Unless you're using this camera the settings almost certainly won't work, so until the logic there is generalized (tracked by #2) you'll need to manually update the code with the relevant values:
-![Image of System Information to see vendor and product IDs](SystemInformation.png)
+![Image of System Information to see vendor and product IDs](Resources/SystemInformation.png)
 
 ### Exposure Values
 At least for the Microsoft LifeCam Studio(TM) sensor, there are apparently only specific values supported - these were obtained from the [CamHolderApp source](https://github.com/HBehrens/CamHolderApp) which is the app I was using previously. That app is also built from UVCCameraControl but has lots of other functionality that I didn't want to take the time to update since I'm really only interested in fixing the exposure settings (because that's what doesn't work well by default).  Eventually it might be worthwhile to incorporate that functionality here, tracked by #3.
