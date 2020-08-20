@@ -1,6 +1,5 @@
 #import "UVCCameraControl.h"
 
-
 const uvc_controls_t uvc_controls = {
 	.autoExposure = {
 		.unit = UVC_INPUT_TERMINAL_ID,
@@ -65,7 +64,6 @@ const uvc_controls_t uvc_controls = {
 	return self;
 }
 
-
 - (id)initWithLocationID:(UInt32)locationID {
 	if( self = [self init] ) {
 		m_interface = NULL;
@@ -108,7 +106,6 @@ const uvc_controls_t uvc_controls = {
 	return self;
 }
 
-
 - (id)initWithVendorID:(int)vendorID productID:(int)productID {
 	if( self = [self init] ) {
 		m_interface = NULL;
@@ -149,7 +146,6 @@ const uvc_controls_t uvc_controls = {
 	return self;
 }
 
-
 - (IOUSBInterfaceInterface190 **)getControlInferaceWithDeviceInterface:(IOUSBDeviceInterface **)deviceInterface {
 	IOUSBInterfaceInterface190 **controlInterface;
 	
@@ -167,7 +163,6 @@ const uvc_controls_t uvc_controls = {
 	
 	io_service_t usbInterface;
 	HRESULT result;
-	
 	
 	if( (usbInterface = IOIteratorNext(interfaceIterator)) ) {
 		IOCFPlugInInterface **plugInInterface = NULL;
@@ -200,14 +195,12 @@ const uvc_controls_t uvc_controls = {
 	return NULL;
 }
 
-
 - (void)dealloc {
 	if( m_interface ) {
 		(*m_interface)->USBInterfaceClose(m_interface);
 		(*m_interface)->Release(m_interface);
 	}
 }
-
 
 - (BOOL)sendControlRequest:(IOUSBDevRequest)controlRequest {
 	if( !m_interface ){
@@ -235,7 +228,6 @@ const uvc_controls_t uvc_controls = {
 	return YES;
 }
 
-
 - (BOOL)setData:(long)value withLength:(int)length forSelector:(int)selector at:(int)unitId {
 	IOUSBDevRequest controlRequest;
 	controlRequest.bmRequestType = USBmakebmRequestType( kUSBOut, kUSBClass, kUSBInterface );
@@ -247,7 +239,6 @@ const uvc_controls_t uvc_controls = {
 	controlRequest.pData = &value;
 	return [self sendControlRequest:controlRequest];
 }
-
 
 - (long)getDataFor:(int)type withLength:(int)length fromSelector:(int)selector at:(int)unitId {
 	long value = 0;
@@ -263,7 +254,6 @@ const uvc_controls_t uvc_controls = {
 	return ( success ? value : 0 );
 }
 
-
 // Get Range (min, max)
 - (uvc_range_t)getRangeForControl:(const uvc_control_info_t *)control {
 	uvc_range_t range = { 0, 0 };
@@ -272,12 +262,10 @@ const uvc_controls_t uvc_controls = {
 	return range;
 }
 
-
 // Used to de-/normalize values
 - (float)mapValue:(float)value fromMin:(float)fromMin max:(float)fromMax toMin:(float)toMin max:(float)toMax {
 	return toMin + (toMax - toMin) * ((value - fromMin) / (fromMax - fromMin));
 }
-
 
 // Get a normalized value
 - (float)getValueForControl:(const uvc_control_info_t *)control {
@@ -287,7 +275,6 @@ const uvc_controls_t uvc_controls = {
 	long intval = [self getDataFor:UVC_GET_CUR withLength:control->size fromSelector:control->selector at:control->unit];
 	return [self mapValue:intval fromMin:range.min max:range.max toMin:0 max:1];
 }
-
 
 // Set a normalized value
 - (BOOL)setValue:(float)value forControl:(const uvc_control_info_t *)control {
@@ -299,14 +286,9 @@ const uvc_controls_t uvc_controls = {
 }
 
 
-
-
-
 // ================================================================
 
 // Set/Get the actual values for the camera
-//
-
 - (NSUInteger)numExposureValues {
 	return [m_discreteExposureValues count];
 }
@@ -405,6 +387,5 @@ const uvc_controls_t uvc_controls = {
 - (float)getWhiteBalance {
 	return [self getValueForControl:&uvc_controls.whiteBalance];
 }
-
 
 @end

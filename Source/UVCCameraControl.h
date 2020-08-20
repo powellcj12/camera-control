@@ -1,11 +1,5 @@
-#import <Foundation/Foundation.h>
-#include <CoreFoundation/CoreFoundation.h>
-
-#include <IOKit/IOKitLib.h>
-#include <IOKit/IOMessage.h>
 #include <IOKit/IOCFPlugIn.h>
 #include <IOKit/usb/IOUSBLib.h>
-
 
 #define UVC_INPUT_TERMINAL_ID 0x01
 #define UVC_PROCESSING_UNIT_ID 0x02
@@ -39,7 +33,6 @@ typedef struct {
 	uvc_control_info_t whiteBalance;
 	uvc_control_info_t autoWhiteBalance;
 } uvc_controls_t ;
-
 
 @interface UVCCameraControl : NSObject
 
