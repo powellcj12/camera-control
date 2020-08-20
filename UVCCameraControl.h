@@ -44,7 +44,7 @@ typedef struct {
 @interface UVCCameraControl : NSObject
 
 - (id)initWithLocationID:(UInt32)locationID;
-- (id)initWithVendorID:(long)vendorID productID:(long)productID;
+- (id)initWithVendorID:(int)vendorID productID:(int)productID;
 - (IOUSBInterfaceInterface190 **)getControlInferaceWithDeviceInterface:(IOUSBDeviceInterface **)deviceInterface;
 
 - (BOOL)sendControlRequest:(IOUSBDevRequest)controlRequest;

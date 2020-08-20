@@ -109,7 +109,7 @@ const uvc_controls_t uvc_controls = {
 }
 
 
-- (id)initWithVendorID:(long)vendorID productID:(long)productID {
+- (id)initWithVendorID:(int)vendorID productID:(int)productID {
 	if( self = [self init] ) {
 		m_interface = NULL;
 		
@@ -174,10 +174,10 @@ const uvc_controls_t uvc_controls = {
 		
 		//Create an intermediate plug-in
 		SInt32 score;
-		kern_return_t kr = IOCreatePlugInInterfaceForService( usbInterface, kIOUSBInterfaceUserClientTypeID, kIOCFPlugInInterfaceID, &plugInInterface, &score );
+		IOCreatePlugInInterfaceForService( usbInterface, kIOUSBInterfaceUserClientTypeID, kIOCFPlugInInterfaceID, &plugInInterface, &score );
 		
 		//Release the usbInterface object after getting the plug-in
-		kr = IOObjectRelease(usbInterface);
+		kern_return_t kr = IOObjectRelease(usbInterface);
 		if( (kr != kIOReturnSuccess) || !plugInInterface ) {
 			NSLog( @"CameraControl Error: Unable to create a plug-in (%08x)\n", kr );
 			return NULL;
@@ -230,7 +230,7 @@ const uvc_controls_t uvc_controls = {
 		return NO;
 	}
 	
-	kr = (*m_interface)->USBInterfaceClose(m_interface);
+	(*m_interface)->USBInterfaceClose(m_interface);
 	
 	return YES;
 }
