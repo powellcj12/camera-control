@@ -208,22 +208,11 @@ const uvc_controls_t uvc_controls = {
 		return NO;
 	}
 	
-	//Now open the interface. This will cause the pipes associated with
-	//the endpoints in the interface descriptor to be instantiated
-	kern_return_t kr = (*m_interface)->USBInterfaceOpen(m_interface);
-	if (kr != kIOReturnSuccess)	{
-		NSLog( @"CameraControl Error: Unable to open interface (%08x)\n", kr );
-		return NO;
-	}
-	
-	kr = (*m_interface)->ControlRequest( m_interface, 0, &controlRequest );
+	kern_return_t kr = (*m_interface)->ControlRequest( m_interface, 0, &controlRequest );
 	if( kr != kIOReturnSuccess ) {
-		kr = (*m_interface)->USBInterfaceClose(m_interface);
 		NSLog( @"CameraControl Error: Control request failed: %08x", kr );
 		return NO;
 	}
-	
-	(*m_interface)->USBInterfaceClose(m_interface);
 	
 	return YES;
 }
