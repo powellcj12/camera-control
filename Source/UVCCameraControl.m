@@ -71,7 +71,7 @@ const uvc_controls_t uvc_controls = {
 		// Find All USB Devices, get their locationId and check if it matches the requested one
 		CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
 		io_iterator_t serviceIterator;
-		IOServiceGetMatchingServices( kIOMasterPortDefault, matchingDict, &serviceIterator );
+		IOServiceGetMatchingServices( kIOMainPortDefault, matchingDict, &serviceIterator );
 		
 		io_service_t camera;
 		while( (camera = IOIteratorNext(serviceIterator)) ) {
@@ -121,7 +121,7 @@ const uvc_controls_t uvc_controls = {
 		numberRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &productID);
 		CFDictionarySetValue( matchingDict, CFSTR(kUSBProductID), numberRef );
 		CFRelease(numberRef);
-		io_service_t camera = IOServiceGetMatchingService( kIOMasterPortDefault, matchingDict );
+		io_service_t camera = IOServiceGetMatchingService( kIOMainPortDefault, matchingDict );
 		
 		
 		// Get DeviceInterface
@@ -208,22 +208,11 @@ const uvc_controls_t uvc_controls = {
 		return NO;
 	}
 	
-	//Now open the interface. This will cause the pipes associated with
-	//the endpoints in the interface descriptor to be instantiated
-	kern_return_t kr = (*m_interface)->USBInterfaceOpen(m_interface);
-	if (kr != kIOReturnSuccess)	{
-		NSLog( @"CameraControl Error: Unable to open interface (%08x)\n", kr );
-		return NO;
-	}
-	
-	kr = (*m_interface)->ControlRequest( m_interface, 0, &controlRequest );
+	kern_return_t kr = (*m_interface)->ControlRequest( m_interface, 0, &controlRequest );
 	if( kr != kIOReturnSuccess ) {
-		kr = (*m_interface)->USBInterfaceClose(m_interface);
 		NSLog( @"CameraControl Error: Control request failed: %08x", kr );
 		return NO;
 	}
-	
-	(*m_interface)->USBInterfaceClose(m_interface);
 	
 	return YES;
 }
