@@ -71,7 +71,7 @@ const uvc_controls_t uvc_controls = {
 		// Find All USB Devices, get their locationId and check if it matches the requested one
 		CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
 		io_iterator_t serviceIterator;
-        IOServiceGetMatchingServices( kIOMainPortDefault, matchingDict, &serviceIterator );
+		IOServiceGetMatchingServices( kIOMainPortDefault, matchingDict, &serviceIterator );
 		
 		io_service_t camera;
 		while( (camera = IOIteratorNext(serviceIterator)) ) {
@@ -121,7 +121,7 @@ const uvc_controls_t uvc_controls = {
 		numberRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &productID);
 		CFDictionarySetValue( matchingDict, CFSTR(kUSBProductID), numberRef );
 		CFRelease(numberRef);
-        io_service_t camera = IOServiceGetMatchingService( kIOMainPortDefault, matchingDict );
+		io_service_t camera = IOServiceGetMatchingService( kIOMainPortDefault, matchingDict );
 		
 		
 		// Get DeviceInterface
