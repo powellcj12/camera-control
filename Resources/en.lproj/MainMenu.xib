@@ -16,12 +16,9 @@
         <customObject id="526" customClass="CameraControlAppDelegate">
             <connections>
                 <outlet property="autoExposureCheckBox" destination="500" id="529"/>
-                <outlet property="autoWhiteBalanceCheckBox" destination="506" id="531"/>
                 <outlet property="cameraSelectButton" destination="EL8-by-NR1" id="vJl-d4-UTA"/>
                 <outlet property="captureView" destination="hEv-3X-7lb" id="ces-iq-ky6"/>
                 <outlet property="exposureSlider" destination="502" id="530"/>
-                <outlet property="gainSlider" destination="514" id="533"/>
-                <outlet property="whiteBalanceSlider" destination="508" id="532"/>
             </connections>
         </customObject>
         <menu title="AMainMenu" systemMenu="main" id="29" userLabel="MainMenu">
@@ -120,17 +117,19 @@
             <point key="canvasLocation" x="140" y="154"/>
         </menu>
         <window title="CameraControl" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="489">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="218" y="162" width="832" height="480"/>
+            <rect key="contentRect" x="218" y="162" width="814" height="483"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <view key="contentView" id="490">
-                <rect key="frame" x="0.0" y="0.0" width="832" height="480"/>
+            <view key="contentView" misplaced="YES" id="490">
+                <rect key="frame" x="0.0" y="0.0" width="814" height="483"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EL8-by-NR1">
-                        <rect key="frame" x="646" y="436" width="169" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EL8-by-NR1">
+                        <rect key="frame" x="654" y="439" width="157" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="nWb-xX-oln"/>
+                        </constraints>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="rvN-F2-Tdo">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -141,12 +140,37 @@
                         </connections>
                     </popUpButton>
                     <customView id="hEv-3X-7lb">
-                        <rect key="frame" x="0.0" y="0.0" width="639" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="649" height="483"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="500">
-                        <rect key="frame" x="646" y="386" width="136" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="502">
+                        <rect key="frame" x="655" y="332" width="154" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="SBA-oQ-zCw"/>
+                        </constraints>
+                        <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="503">
+                            <font key="font" usesAppearanceFont="YES"/>
+                        </sliderCell>
+                        <connections>
+                            <action selector="sliderMoved:" target="526" id="536"/>
+                        </connections>
+                    </slider>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="504">
+                        <rect key="frame" x="655" y="366" width="154" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="4ZQ-AY-uWs"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure Time" id="505">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="500">
+                        <rect key="frame" x="655" y="389" width="152" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="134" id="Zfj-Hy-U3u"/>
+                        </constraints>
                         <buttonCell key="cell" type="check" title="Auto Exposure" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="501">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -155,77 +179,24 @@
                             <action selector="checkBoxChanged:" target="526" id="539"/>
                         </connections>
                     </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="502">
-                        <rect key="frame" x="646" y="326" width="168" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="503">
-                            <font key="font" usesAppearanceFont="YES"/>
-                        </sliderCell>
-                        <connections>
-                            <action selector="sliderMoved:" target="526" id="536"/>
-                        </connections>
-                    </slider>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="504">
-                        <rect key="frame" x="645" y="353" width="138" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure Time" id="505">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="506">
-                        <rect key="frame" x="646" y="266" width="168" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Auto White Balance" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="507">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="checkBoxChanged:" target="526" id="541"/>
-                        </connections>
-                    </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="508">
-                        <rect key="frame" x="646" y="206" width="168" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="509">
-                            <font key="font" usesAppearanceFont="YES"/>
-                        </sliderCell>
-                        <connections>
-                            <action selector="sliderMoved:" target="526" id="537"/>
-                        </connections>
-                    </slider>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="510">
-                        <rect key="frame" x="645" y="233" width="170" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="White Balance" id="511">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="512">
-                        <rect key="frame" x="645" y="145" width="38" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gain" id="513">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="514">
-                        <rect key="frame" x="646" y="118" width="168" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="515">
-                            <font key="font" usesAppearanceFont="YES"/>
-                        </sliderCell>
-                        <connections>
-                            <action selector="sliderMoved:" target="526" id="538"/>
-                        </connections>
-                    </slider>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="EL8-by-NR1" firstAttribute="top" secondItem="490" secondAttribute="top" constant="20" symbolic="YES" id="43w-za-jlg"/>
+                    <constraint firstItem="502" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="DC4-WX-E5L"/>
+                    <constraint firstItem="504" firstAttribute="top" secondItem="500" secondAttribute="bottom" constant="8" symbolic="YES" id="GwJ-UQ-BmW"/>
+                    <constraint firstAttribute="trailing" secondItem="EL8-by-NR1" secondAttribute="trailing" constant="20" symbolic="YES" id="HWo-0c-tBo"/>
+                    <constraint firstAttribute="trailing" secondItem="502" secondAttribute="trailing" constant="20" symbolic="YES" id="JQo-Qb-gIt"/>
+                    <constraint firstItem="502" firstAttribute="top" secondItem="504" secondAttribute="bottom" constant="8" symbolic="YES" id="LTa-fq-xgI"/>
+                    <constraint firstItem="500" firstAttribute="top" secondItem="EL8-by-NR1" secondAttribute="bottom" constant="37" id="MB6-pF-8US"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="502" secondAttribute="bottom" constant="100" id="MFw-Pr-OAa"/>
+                    <constraint firstItem="500" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="Pzs-9K-O2v"/>
+                    <constraint firstAttribute="trailing" secondItem="504" secondAttribute="trailing" constant="20" symbolic="YES" id="QFm-DO-oz4"/>
+                    <constraint firstAttribute="trailing" secondItem="500" secondAttribute="trailing" constant="20" symbolic="YES" id="mX7-nF-UkV"/>
+                    <constraint firstItem="504" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="sw4-v9-QNK"/>
+                    <constraint firstItem="EL8-by-NR1" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="xtn-8R-7uI"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="-143" y="-180"/>
+            <point key="canvasLocation" x="-126" y="-178.5"/>
         </window>
         <customObject id="420" customClass="NSFontManager"/>
         <viewController id="TK9-lG-bW6" customClass="CameraControlViewController">
