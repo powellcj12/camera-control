@@ -113,16 +113,16 @@
         <window title="CameraControl" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="489">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="218" y="162" width="832" height="480"/>
+            <rect key="contentRect" x="218" y="162" width="814" height="483"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <view key="contentView" id="490">
-                <rect key="frame" x="0.0" y="0.0" width="832" height="480"/>
+            <view key="contentView" misplaced="YES" id="490">
+                <rect key="frame" x="0.0" y="0.0" width="853" height="483"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EL8-by-NR1">
-                        <rect key="frame" x="644" y="436" width="172" height="25"/>
+                        <rect key="frame" x="693" y="439" width="157" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="162" id="mUN-b1-ab1"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="nWb-xX-oln"/>
                         </constraints>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="rvN-F2-Tdo">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -134,11 +134,34 @@
                         </connections>
                     </popUpButton>
                     <customView id="hEv-3X-7lb">
-                        <rect key="frame" x="0.0" y="0.0" width="639" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="688" height="483"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="502">
+                        <rect key="frame" x="694" y="332" width="154" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="SBA-oQ-zCw"/>
+                        </constraints>
+                        <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="503">
+                            <font key="font" usesAppearanceFont="YES"/>
+                        </sliderCell>
+                        <connections>
+                            <action selector="sliderMoved:" target="526" id="536"/>
+                        </connections>
+                    </slider>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="504">
+                        <rect key="frame" x="694" y="366" width="154" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="4ZQ-AY-uWs"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure Time" id="505">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="500">
-                        <rect key="frame" x="646" y="386" width="166" height="18"/>
+                        <rect key="frame" x="694" y="389" width="152" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="134" id="Zfj-Hy-U3u"/>
                         </constraints>
@@ -150,26 +173,6 @@
                             <action selector="checkBoxChanged:" target="526" id="539"/>
                         </connections>
                     </button>
-                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="502">
-                        <rect key="frame" x="645" y="329" width="169" height="28"/>
-                        <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="503">
-                            <font key="font" usesAppearanceFont="YES"/>
-                        </sliderCell>
-                        <connections>
-                            <action selector="sliderMoved:" target="526" id="536"/>
-                        </connections>
-                    </slider>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="504">
-                        <rect key="frame" x="645" y="363" width="169" height="16"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="4ZQ-AY-uWs"/>
-                        </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure Time" id="505">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="EL8-by-NR1" firstAttribute="top" secondItem="490" secondAttribute="top" constant="20" symbolic="YES" id="43w-za-jlg"/>
@@ -179,14 +182,15 @@
                     <constraint firstAttribute="trailing" secondItem="502" secondAttribute="trailing" constant="20" symbolic="YES" id="JQo-Qb-gIt"/>
                     <constraint firstItem="502" firstAttribute="top" secondItem="504" secondAttribute="bottom" constant="8" symbolic="YES" id="LTa-fq-xgI"/>
                     <constraint firstItem="500" firstAttribute="top" secondItem="EL8-by-NR1" secondAttribute="bottom" constant="37" id="MB6-pF-8US"/>
-                    <constraint firstItem="500" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="9" id="Pzs-9K-O2v"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="502" secondAttribute="bottom" constant="100" id="MFw-Pr-OAa"/>
+                    <constraint firstItem="500" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="Pzs-9K-O2v"/>
                     <constraint firstAttribute="trailing" secondItem="504" secondAttribute="trailing" constant="20" symbolic="YES" id="QFm-DO-oz4"/>
                     <constraint firstAttribute="trailing" secondItem="500" secondAttribute="trailing" constant="20" symbolic="YES" id="mX7-nF-UkV"/>
                     <constraint firstItem="504" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="sw4-v9-QNK"/>
                     <constraint firstItem="EL8-by-NR1" firstAttribute="leading" secondItem="hEv-3X-7lb" secondAttribute="trailing" constant="8" symbolic="YES" id="xtn-8R-7uI"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-143" y="-180"/>
+            <point key="canvasLocation" x="-126" y="-178.5"/>
         </window>
         <customObject id="420" customClass="NSFontManager"/>
     </objects>
