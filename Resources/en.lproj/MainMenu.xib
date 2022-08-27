@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21223" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21223"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -87,6 +88,12 @@
                                     <action selector="performZoom:" target="-1" id="240"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Keep on Top" id="VFE-Mz-U1w">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleKeepOnTop:" target="TK9-lG-bW6" id="2wC-aP-U2u"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -116,7 +123,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="218" y="162" width="832" height="480"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="490">
                 <rect key="frame" x="0.0" y="0.0" width="832" height="480"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -126,7 +133,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="rvN-F2-Tdo">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" id="FP9-5h-U4u"/>
                         </popUpButtonCell>
                         <connections>
@@ -152,7 +159,7 @@
                         <rect key="frame" x="646" y="326" width="168" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="503">
-                            <font key="font" metaFont="user"/>
+                            <font key="font" usesAppearanceFont="YES"/>
                         </sliderCell>
                         <connections>
                             <action selector="sliderMoved:" target="526" id="536"/>
@@ -182,7 +189,7 @@
                         <rect key="frame" x="646" y="206" width="168" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="509">
-                            <font key="font" metaFont="user"/>
+                            <font key="font" usesAppearanceFont="YES"/>
                         </sliderCell>
                         <connections>
                             <action selector="sliderMoved:" target="526" id="537"/>
@@ -210,7 +217,7 @@
                         <rect key="frame" x="646" y="118" width="168" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="515">
-                            <font key="font" metaFont="user"/>
+                            <font key="font" usesAppearanceFont="YES"/>
                         </sliderCell>
                         <connections>
                             <action selector="sliderMoved:" target="526" id="538"/>
@@ -221,5 +228,11 @@
             <point key="canvasLocation" x="-143" y="-180"/>
         </window>
         <customObject id="420" customClass="NSFontManager"/>
+        <viewController id="TK9-lG-bW6" customClass="CameraControlViewController">
+            <connections>
+                <outlet property="keepOnTopMenuItem" destination="VFE-Mz-U1w" id="9QP-WI-SgZ"/>
+                <outlet property="view" destination="490" id="6ys-dF-kS2"/>
+            </connections>
+        </viewController>
     </objects>
 </document>
