@@ -88,6 +88,12 @@
                                     <action selector="performZoom:" target="-1" id="240"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Keep on Top" id="VFE-Mz-U1w">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleKeepOnTop:" target="TK9-lG-bW6" id="2wC-aP-U2u"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -224,6 +230,7 @@
         <customObject id="420" customClass="NSFontManager"/>
         <viewController id="TK9-lG-bW6" customClass="CameraControlViewController">
             <connections>
+                <outlet property="keepOnTopMenuItem" destination="VFE-Mz-U1w" id="9QP-WI-SgZ"/>
                 <outlet property="view" destination="490" id="6ys-dF-kS2"/>
             </connections>
         </viewController>

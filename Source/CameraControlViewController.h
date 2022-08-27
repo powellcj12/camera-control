@@ -2,7 +2,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CameraControlViewController : NSViewController
+@interface CameraControlViewController : NSViewController <NSUserInterfaceValidations>
+- (IBAction)toggleKeepOnTop:(NSMenuItem *)sender;
+@property (weak) IBOutlet NSMenuItem *keepOnTopMenuItem;
 
 @end
 

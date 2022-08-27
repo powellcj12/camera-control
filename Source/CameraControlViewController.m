@@ -1,16 +1,25 @@
 #import "CameraControlViewController.h"
 
-@interface CameraControlViewController ()
+@interface CameraControlViewController () {
+	BOOL isKeepOnTopSelected;
+}
 
 @end
 
 @implementation CameraControlViewController
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
+{
+	if (item == _keepOnTopMenuItem) {
+		[_keepOnTopMenuItem setState:isKeepOnTopSelected ? NSControlStateValueOn : NSControlStateValueOff];
+	}
 	
-	// Always keep the window on top, that seems to prevent the camera from freezing
-	[[[self view] window] setLevel:NSStatusWindowLevel];
+	return YES;
 }
 
+- (IBAction)toggleKeepOnTop:(NSMenuItem *)sender {
+	isKeepOnTopSelected = !isKeepOnTopSelected;
+	const NSWindowLevel windowLevel = isKeepOnTopSelected ? NSStatusWindowLevel : NSNormalWindowLevel;
+	[[[self view] window] setLevel:windowLevel];
+}
 @end
