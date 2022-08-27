@@ -85,6 +85,12 @@
                                     <action selector="performZoom:" target="-1" id="240"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Keep on Top" id="VFE-Mz-U1w">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleKeepOnTop:" target="TK9-lG-bW6" id="2wC-aP-U2u"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -116,11 +122,11 @@
             <rect key="contentRect" x="218" y="162" width="814" height="483"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" misplaced="YES" id="490">
-                <rect key="frame" x="0.0" y="0.0" width="853" height="483"/>
+                <rect key="frame" x="0.0" y="0.0" width="814" height="483"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EL8-by-NR1">
-                        <rect key="frame" x="693" y="439" width="157" height="25"/>
+                        <rect key="frame" x="654" y="439" width="157" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="nWb-xX-oln"/>
                         </constraints>
@@ -134,11 +140,11 @@
                         </connections>
                     </popUpButton>
                     <customView id="hEv-3X-7lb">
-                        <rect key="frame" x="0.0" y="0.0" width="688" height="483"/>
+                        <rect key="frame" x="0.0" y="0.0" width="649" height="483"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="502">
-                        <rect key="frame" x="694" y="332" width="154" height="28"/>
+                        <rect key="frame" x="655" y="332" width="154" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="SBA-oQ-zCw"/>
                         </constraints>
@@ -150,7 +156,7 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="504">
-                        <rect key="frame" x="694" y="366" width="154" height="16"/>
+                        <rect key="frame" x="655" y="366" width="154" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="4ZQ-AY-uWs"/>
                         </constraints>
@@ -161,7 +167,7 @@
                         </textFieldCell>
                     </textField>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="500">
-                        <rect key="frame" x="694" y="389" width="152" height="18"/>
+                        <rect key="frame" x="655" y="389" width="152" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="134" id="Zfj-Hy-U3u"/>
                         </constraints>
@@ -193,5 +199,11 @@
             <point key="canvasLocation" x="-126" y="-178.5"/>
         </window>
         <customObject id="420" customClass="NSFontManager"/>
+        <viewController id="TK9-lG-bW6" customClass="CameraControlViewController">
+            <connections>
+                <outlet property="keepOnTopMenuItem" destination="VFE-Mz-U1w" id="9QP-WI-SgZ"/>
+                <outlet property="view" destination="490" id="6ys-dF-kS2"/>
+            </connections>
+        </viewController>
     </objects>
 </document>
